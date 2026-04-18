@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Velocity India | Ultimate Luxury Automotive Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@200;400;600;800&display=swap');
+        
+        :root {
+            --brand-red: #ff3e3e;
+            --bg-dark: #050505;
+            --card-surface: #121214;
+            --border-white: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-white);
+        }
+
+        .premium-card {
+            background: var(--card-surface);
+            border: 1px solid var(--border-white);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border-radius: 1.75rem;
+        }
+
+        .premium-card:hover {
+            border-color: var(--brand-red);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.6);
+        }
+
+        .filter-btn {
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .filter-btn.active {
+            background-color: var(--brand-red);
+            color: white;
+            border-color: var(--brand-red);
+            box-shadow: 0 6px 18px rgba(255, 62, 62, 0.35);
+        }
+
+        .account-tab {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .account-tab.active {
+            background: rgba(255, 62, 62, 0.12);
+            color: var(--brand-red);
+            border-left: 3px solid var(--brand-red);
+        }
+
+        .input-modern {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-white);
+            transition: all 0.3s ease;
+            border-radius: 1rem;
+        }
+
+        .input-modern:focus {
+            border-color: var(--brand-red);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 62, 62, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--brand-red);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #e02e2e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -8px rgba(255, 62, 62, 0.4);
+        }
+
+        .btn-outline-light {
+            border: 1px solid var(--border-white);
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-light:hover {
+            border-color: var(--brand-red);
+            background: rgba(255, 62, 62, 0.1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #ff3e3e;
+            border-radius: 10px;
+        }
+
+        .search-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-white);
+            transition: all 0.3s ease;
+            border-radius: 2rem;
+        }
+
+        .search-container:focus-within {
+            border-color: var(--brand-red);
+            box-shadow: 0 0 0 3px rgba(255, 62, 62, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .card-img-container {
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: #0a0a0c;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+        }
+
+        .text-stroke-white {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+        }
+
+        .loading-spinner {
+            border: 2px solid rgba(255, 62, 62, 0.2);
+            border-top-color: var(--brand-red);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.8s linear infinite;
+        }
+    </style>
+</head>
+<body class="custom-scrollbar">
+
+    <!-- HEADER / NAVIGATION -->
+    <nav class="fixed top-0 w-full z-[100] glass-nav">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="window.location.reload()">
+                <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center rotate-2 group-hover:rotate-0 transition-all shadow-lg shadow-red-600/30">
+                    <i class="fas fa-bolt text-white text-xl"></i>
+                </div>
+                <span class="nav-logo text-xl md:text-2xl font-black tracking-tighter uppercase">Velocity <span class="text-red-600">IN</span></span>
+            </div>
+            
+            <div class="hidden lg:flex items-center gap-9 text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400">
+                <a href="#" class="hover:text-red-500 transition">Marketplace</a>
+                <a href="#" class="hover:text-red-500 transition">Pre-Owned</a>
+                <a href="#" class="hover:text-red-500 transition">Supercars</a>
+                <a href="#" class="hover:text-red-500 transition">Magazine</a>
+            </div>
+
+            <div class="flex items-center gap-5">
+                <button id="accountBtnHeader" class="sm:block text-[11px] font-bold uppercase tracking-widest text-gray-300 hover:text-white transition flex items-center gap-2">
+                    <i class="fas fa-user-circle text-red-500 text-base"></i> My Account
+                </button>
+                <button id="listCarBtn" class="bg-red-600 hover:bg-red-700 text-white px-7 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest transition shadow-lg shadow-red-600/20">List Car</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-44 pb-20 px-5 md:px-8 max-w-7xl mx-auto overflow-hidden">
+        <div class="relative z-10 text-center space-y-6">
+            <span class="inline-block text-[10px] font-black tracking-[0.4em] text-red-500 uppercase border border-red-500/30 px-5 py-1.5 rounded-full mb-3 backdrop-blur-sm">India's Premier Automotive Hub</span>
+            <h1 class="text-5xl md:text-8xl font-black leading-[0.9] tracking-tighter uppercase italic">
+                Beyond the <br>
+                <span class="text-transparent text-stroke-white">Speed Limit.</span>
+            </h1>
+            <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-lg font-light leading-relaxed">
+                Discover the most comprehensive database of vehicles in the Indian market. From street icons to hypercar legends.
+            </p>
+
+            <div class="max-w-2xl mx-auto mt-12">
+                <div class="search-container flex items-center p-1.5 pl-3 rounded-full">
+                    <div class="px-3 text-gray-500"><i class="fas fa-search text-sm"></i></div>
+                    <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="Search by brand, model or category..." 
+                        class="w-full bg-transparent border-none outline-none py-3.5 text-sm font-medium placeholder:text-gray-500 text-white">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FILTER BAR -->
+    <div class="sticky top-[73px] z-40 bg-black/60 backdrop-blur-xl py-5 border-y border-white/10 mb-12 shadow-sm">
+        <div class="max-w-7xl mx-auto px-5 md:px-8">
+            <div class="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0">
+                <button data-filter="all" class="filter-btn active border border-white/15 px-7 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest">All Vehicles</button>
+                <button data-filter="Luxury" class="filter-btn border border-white/15 px-7 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest">Luxury</button>
+                <button data-filter="Supercar" class="filter-btn border border-white/15 px-7 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest">Supercars</button>
+                <button data-filter="Hypercar" class="filter-btn border border-white/15 px-7 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest">Hypercars</button>
+                <button data-filter="SUV" class="filter-btn border border-white/15 px-7 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest">SUVs</button>
+                <button data-filter="Bike" class="filter-btn border border-white/15 px-7 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest">Bikes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT GRID + ACCOUNT DASHBOARD -->
+    <main class="max-w-7xl mx-auto px-5 md:px-8 pb-32">
+        <!-- Account Dashboard -->
+        <div id="accountDashboard" class="hidden mb-12 transition-all duration-500">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="premium-card p-5 sticky top-28">
+                        <div class="flex flex-col items-center text-center mb-6 pb-6 border-b border-white/10">
+                            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center mb-4 shadow-xl">
+                                <i class="fas fa-user-astronaut text-4xl text-white"></i>
+                            </div>
+                            <h3 id="displayNameSidebar" class="text-xl font-bold uppercase tracking-tight">Aarav Mehta</h3>
+                            <p id="displayEmailSidebar" class="text-[10px] text-gray-500 mt-1">aarav.mehta@velocity.in</p>
+                            <span class="mt-2 bg-white/5 text-[8px] px-3 py-1 rounded-full font-mono">Platinum Member</span>
+                        </div>
+                        <div class="space-y-1.5">
+                            <div class="account-tab active p-3 rounded-xl flex items-center gap-3 text-sm font-bold transition" data-tab="profile"><i class="fas fa-id-card w-5 text-red-500"></i> Profile Details</div>
+                            <div class="account-tab p-3 rounded-xl flex items-center gap-3 text-sm font-bold text-gray-400 hover:text-white transition" data-tab="garage"><i class="fas fa-car w-5"></i> My Garage</div>
+                            <div class="account-tab p-3 rounded-xl flex items-center gap-3 text-sm font-bold text-gray-400 hover:text-white transition" data-tab="security"><i class="fas fa-shield-alt w-5"></i> Security</div>
+                            <div class="account-tab p-3 rounded-xl flex items-center gap-3 text-sm font-bold text-gray-400 hover:text-white transition" data-tab="wishlist"><i class="fas fa-heart w-5"></i> Wishlist</div>
+                        </div>
+                        <button id="closeAccountBtn" class="w-full mt-8 btn-outline-light py-3 rounded-xl text-[11px] font-bold uppercase tracking-widest text-red-400 hover:text-red-500 transition flex items-center justify-center gap-2"><i class="fas fa-times"></i> Close Dashboard</button>
+                    </div>
+                </div>
+                <div class="lg:col-span-3">
+                    <div id="profileTab" class="account-tab-content animate-fade"><div class="premium-card p-6 md:p-8"><h2 class="text-2xl font-black uppercase tracking-tight mb-6"><i class="fas fa-user-edit text-red-500"></i> Edit Profile</h2><form id="profileForm"><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div><label class="block text-[10px] font-bold text-gray-400 mb-2">Full Name</label><input type="text" id="fullName" class="input-modern w-full px-5 py-3 text-white"></div><div><label class="block text-[10px] font-bold text-gray-400 mb-2">Email</label><input type="email" id="email" class="input-modern w-full px-5 py-3 text-white"></div><div><label class="block text-[10px] font-bold text-gray-400 mb-2">Phone</label><input type="tel" id="phone" class="input-modern w-full px-5 py-3 text-white"></div><div><label class="block text-[10px] font-bold text-gray-400 mb-2">Location</label><input type="text" id="city" class="input-modern w-full px-5 py-3 text-white"></div></div><div><label class="block text-[10px] font-bold text-gray-400 mb-2">Currency</label><select id="currency" class="input-modern w-full px-5 py-3 text-white bg-black"><option>INR</option><option>USD</option><option>EUR</option></select></div><div class="flex justify-end mt-6"><button type="button" id="saveProfileBtn" class="btn-primary px-8 py-3 rounded-xl text-[11px] font-black">Save Changes</button></div></form></div></div>
+                    <div id="garageTab" class="account-tab-content hidden animate-fade"><div class="premium-card p-6 md:p-8"><div class="flex justify-between items-center mb-6"><h2 class="text-2xl font-black"><i class="fas fa-garage text-red-500"></i> My Garage</h2><button id="addVehicleBtn" class="text-[10px] font-bold bg-white/5 border border-white/15 px-4 py-2 rounded-full hover:border-red-500"><i class="fas fa-plus mr-1"></i> Add Vehicle</button></div><div id="garageList" class="space-y-3"></div></div></div>
+                    <div id="securityTab" class="account-tab-content hidden animate-fade"><div class="premium-card p-6 md:p-8"><h2 class="text-2xl font-black mb-6"><i class="fas fa-lock text-red-500"></i> Security</h2><form><div><label class="block text-[10px] font-bold text-gray-400 mb-2">Current Password</label><input type="password" id="currentPwd" class="input-modern w-full px-5 py-3 text-white"></div><div class="mt-4"><label class="block text-[10px] font-bold text-gray-400 mb-2">New Password</label><input type="password" id="newPwd" class="input-modern w-full px-5 py-3 text-white"></div><div class="mt-4"><label class="block text-[10px] font-bold text-gray-400 mb-2">Confirm Password</label><input type="password" id="confirmPwd" class="input-modern w-full px-5 py-3 text-white"></div><div class="flex justify-end mt-6"><button type="button" id="updatePasswordBtn" class="btn-primary px-8 py-3 rounded-xl text-[11px] font-black">Update Password</button></div></form></div></div>
+                    <div id="wishlistTab" class="account-tab-content hidden animate-fade"><div class="premium-card p-6 md:p-8"><h2 class="text-2xl font-black mb-6"><i class="fas fa-heart text-red-500"></i> Wishlist</h2><div id="wishlistItems" class="space-y-3"></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-[11px] font-black text-gray-400 tracking-[0.3em] uppercase">CURATED COLLECTION</h2>
+            <button id="openAccountBtn" class="text-[10px] font-bold text-red-500 hover:text-red-400 transition flex items-center gap-2"><i class="fas fa-user-circle"></i> View My Account</button>
+        </div>
+        
+        <div id="carsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        <div id="emptyState" class="hidden flex-col items-center justify-center py-20 text-gray-500 space-y-4"><i class="fas fa-ghost text-5xl"></i><p class="font-bold tracking-widest uppercase text-xs">No matching machines found</p></div>
+    </main>
+
+    <!-- PRODUCT MODAL -->
+    <div id="productModal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 modal-backdrop">
+        <div class="absolute inset-0" onclick="closeModal()"></div>
+        <div class="relative w-full max-w-5xl bg-[#0a0a0a] border border-white/10 rounded-[2rem] overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
+            <div class="md:w-1/2 h-64 md:h-auto relative"><img id="modalImg" src="" alt="" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div><div class="absolute bottom-6 left-6"><span id="modalCategory" class="text-[10px] font-bold text-red-500 uppercase tracking-[0.2em] mb-2 block"></span><h2 id="modalName" class="text-3xl font-black uppercase italic tracking-tighter"></h2></div></div>
+            <div class="md:w-1/2 p-8 md:p-12 overflow-y-auto custom-scrollbar flex flex-col justify-between bg-[#0a0a0a]"><button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-xl"><i class="fas fa-times"></i></button><div><div class="flex items-end gap-2 mb-8"><p id="modalPrice" class="text-4xl font-black text-white"></p><span class="text-[10px] text-gray-500 mb-2 uppercase font-bold tracking-widest">Ex-Showroom</span></div><div class="grid grid-cols-2 gap-4 mb-8"><div class="bg-white/5 p-4 rounded-xl"><p class="text-[8px] uppercase tracking-widest text-gray-500 mb-1 font-bold">Body Style</p><p id="modalBody" class="text-xs font-bold text-white uppercase"></p></div><div class="bg-white/5 p-4 rounded-xl"><p class="text-[8px] uppercase tracking-widest text-gray-500 mb-1 font-bold">Market</p><p class="text-xs font-bold text-white uppercase">Pan India</p></div></div><p id="modalDesc" class="text-gray-400 text-sm leading-relaxed mb-10 font-light italic border-l-2 border-red-600 pl-4"></p></div><div class="space-y-3"><button id="bookTourBtn" class="w-full bg-red-600 py-4 rounded-xl font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-red-700 transition shadow-lg shadow-red-600/20 flex items-center justify-center gap-2"><i class="fas fa-vr-cardboard"></i> Book Virtual Tour</button><button id="downloadBrochureBtn" class="w-full bg-white/5 border border-white/10 py-4 rounded-xl font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-white/10 transition flex items-center justify-center gap-2"><i class="fas fa-download"></i> Download Brochure</button></div></div>
+        </div>
+    </div>
+
+    <!-- VIRTUAL TOUR BOOKING MODAL -->
+    <div id="tourModal" class="fixed inset-0 z-[300] hidden items-center justify-center p-4 modal-backdrop">
+        <div class="absolute inset-0" onclick="closeTourModal()"></div>
+        <div class="relative tour-modal bg-[#121214] border border-white/15 rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl">
+            <button onclick="closeTourModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition"><i class="fas fa-times text-xl"></i></button>
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-red-600/20 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fas fa-vr-cardboard text-3xl text-red-500"></i></div>
+                <h3 class="text-2xl font-black uppercase tracking-tight" id="tourCarName">Vehicle Name</h3>
+                <p class="text-gray-400 text-xs mt-1">Schedule your immersive virtual tour experience</p>
+            </div>
+            <div class="space-y-4">
+                <div><label class="block text-[10px] font-bold text-gray-400 mb-2">Full Name *</label><input type="text" id="tourName" class="input-modern w-full px-4 py-3 text-white text-sm" placeholder="Enter your name"></div>
+                <div><label class="block text-[10px] font-bold text-gray-400 mb-2">Email Address *</label><input type="email" id="tourEmail" class="input-modern w-full px-4 py-3 text-white text-sm" placeholder="your@email.com"></div>
+                <div><label class="block text-[10px] font-bold text-gray-400 mb-2">Phone Number</label><input type="tel" id="tourPhone" class="input-modern w-full px-4 py-3 text-white text-sm" placeholder="+91 XXXXXXXXXX"></div>
+                <div><label class="block text-[10px] font-bold text-gray-400 mb-2">Preferred Date *</label><input type="date" id="tourDate" class="input-modern date-input w-full px-4 py-3 text-white text-sm"></div>
+                <div><label class="block text-[10px] font-bold text-gray-400 mb-2">Preferred Time Slot *</label><select id="tourTime" class="input-modern w-full px-4 py-3 text-white text-sm bg-black"><option>10:00 AM - 11:00 AM</option><option>12:00 PM - 01:00 PM</option><option>02:00 PM - 03:00 PM</option><option>04:00 PM - 05:00 PM</option><option>06:00 PM - 07:00 PM</option></select></div>
+                <button id="confirmTourBtn" class="w-full bg-red-600 py-3.5 rounded-xl font-bold text-[11px] uppercase tracking-widest hover:bg-red-700 transition mt-4 flex items-center justify-center gap-2"><i class="fas fa-calendar-check"></i> Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD VEHICLE MODAL -->
+    <div id="vehicleModal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 modal-backdrop"><div class="bg-[#121214] border border-white/15 rounded-2xl max-w-md w-full p-6"><h3 class="text-xl font-bold mb-4">Add to Garage</h3><input type="text" id="vehicleModel" placeholder="Model (e.g., Lamborghini Revuelto)" class="input-modern w-full px-4 py-3 text-sm mb-3"><input type="text" id="vehicleYear" placeholder="Year" class="input-modern w-full px-4 py-3 text-sm mb-3"><div class="flex gap-3 mt-4"><button id="confirmVehicleBtn" class="bg-red-600 flex-1 py-2 rounded-xl text-sm font-bold">Add</button><button onclick="closeVehicleModal()" class="border border-white/15 flex-1 py-2 rounded-xl text-sm">Cancel</button></div></div></div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast-notification hidden fixed bottom-6 right-6 z-[1000] bg-black/90 border-l-4 border-red-600 rounded-xl shadow-2xl px-5 py-3 backdrop-blur-md"><div class="flex items-center gap-3"><i class="fas fa-check-circle text-red-500"></i><span id="toastMsg" class="text-xs font-medium"></span></div></div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 py-16 bg-black/90"><div class="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-12"><div><span class="text-xl font-black tracking-tighter uppercase mb-4 block">Velocity <span class="text-red-600">IN</span></span><p class="text-[11px] text-gray-500 max-w-xs leading-relaxed">The largest aggregator of luxury and performance vehicles in the Indian subcontinent. Curating excellence since 2018.</p></div><div class="flex justify-start md:justify-center gap-7"><a href="#" class="text-gray-500 hover:text-red-500 text-2xl transition"><i class="fab fa-instagram"></i></a><a href="#" class="text-gray-500 hover:text-red-500 text-2xl transition"><i class="fab fa-twitter"></i></a><a href="#" class="text-gray-500 hover:text-red-500 text-2xl transition"><i class="fab fa-youtube"></i></a></div><div class="text-left md:text-right"><p class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.2em]">© 2026 VELOCITY AUTOMOTIVE PVT LTD.</p><p class="text-[8px] text-gray-600 mt-1">All trademarks belong to respective owners.</p></div></div></footer>
+
+    <script>
+        // Enhanced Vehicle Database (expanded collection)
+        const db = [
+            { id: 1, cat: 'SUV', brand: 'Mahindra', model: 'Thar ROXX', body: 'Hardtop 4x4', price: '₹12.99 Lakh', img: 'https://images.unsplash.com/photo-1662446755497-2808e0467406?auto=format&fit=crop&q=80&w=800', desc: 'The absolute icon of Indian off-roading, reimagined with premium comfort and unparalleled ruggedness. Command every terrain with authority.' },
+            { id: 2, cat: 'Luxury', brand: 'BMW', model: 'M340i xDrive', body: 'Performance Sedan', price: '₹74.90 Lakh', img: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&q=80&w=800', desc: 'Born on the track, made for Indian roads. The fastest accelerating made-in-India BMW with xDrive all-wheel drive and straight-six thunder.' },
+            { id: 3, cat: 'Supercar', brand: 'Porsche', model: '911 Turbo S', body: 'AWD Supercar', price: '₹3.35 Crore', img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800', desc: 'The daily-driven supercar. 650hp, 0-100 in 2.7 seconds. Precision engineering that defies physics.' },
+            { id: 4, cat: 'SUV', brand: 'Land Rover', model: 'Defender 110', body: 'Luxury Off-roader', price: '₹97.00 Lakh', img: 'https://images.unsplash.com/photo-1618335829737-2228ad3088bc?auto=format&fit=crop&q=80&w=800', desc: 'Unyielding capability with modern elegance. A design that respects its heritage while pushing the boundaries of luxury.' },
+            { id: 5, cat: 'Hypercar', brand: 'Lamborghini', model: 'Revuelto', body: 'V12 Hybrid', price: '₹8.89 Crore', img: 'https://images.unsplash.com/photo-1525609004556-c46c7d6cf0a3?auto=format&fit=crop&q=80&w=800', desc: 'The first V12 HPEV (High Performance Electrified Vehicle) hybrid super sports car. Beyond imagination, with 1015 CV hybrid powertrain.' },
+            { id: 6, cat: 'SUV', brand: 'Mercedes-AMG', model: 'G 63', body: 'Iconic Luxury', price: '₹3.30 Crore', img: 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&q=80&w=800', desc: 'The king of luxury SUVs. The G-Wagon in its most powerful avatar with handcrafted AMG V8. Presence, performance, and prestige.' },
+            { id: 7, cat: 'Bike', brand: 'Ducati', model: 'Panigale V4 S', body: 'Supersport', price: '₹33.48 Lakh', img: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&q=80&w=800', desc: 'Pure Italian racing pedigree. Desmosedici Stradale V4 engine, aerodynamics derived from MotoGP. Masterpiece of speed and control.' },
+            { id: 8, cat: 'Luxury', brand: 'Rolls-Royce', model: 'Ghost', body: 'Ultra-Luxury', price: '₹6.95 Crore', img: 'https://images.unsplash.com/photo-1631215539199-fd83163780c7?auto=format&fit=crop&q=80&w=800', desc: 'The purest expression of Rolls-Royce. Silent, effortless, and bespoke. Every detail handcrafted to perfection.' },
+            { id: 9, cat: 'SUV', brand: 'Toyota', model: 'Fortuner Legender', body: 'Rugged SUV', price: '₹43.66 Lakh', img: 'https://images.unsplash.com/photo-1634842523292-622f986293f7?auto=format&fit=crop&q=80&w=800', desc: 'The undisputed champion of the premium SUV segment in India. Dominant, reliable, and road-dominating presence.' },
+            { id: 10, cat: 'Supercar', brand: 'Ferrari', model: '296 GTB', body: 'V6 Hybrid', price: '₹5.40 Crore', img: 'https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&q=80&w=800', desc: 'The new definition of driving pleasure. 830 CV plug-in hybrid V6. Exceptional handling and Ferrari\'s signature sound.' },
+            { id: 11, cat: 'Luxury', brand: 'Audi', model: 'RS7 Sportback', body: 'Performance Liftback', price: '₹2.10 Crore', img: 'https://images.unsplash.com/photo-1606661287798-3c1c6e3c0f9e?auto=format&fit=crop&q=80&w=800', desc: 'Aggressive styling meets quattro performance. 600hp V8 with hybrid assist. The ultimate grand tourer.' },
+            { id: 12, cat: 'Bike', brand: 'Triumph', model: 'Street Triple RS', body: 'Naked Sport', price: '₹11.94 Lakh', img: 'https://images.unsplash.com/photo-1624093249400-8f6fbf544b6d?auto=format&fit=crop&q=80&w=800', desc: 'British engineering precision. Lightweight, torquey, and razor-sharp handling for the purist rider.' }
+        ];
+
+        let activeFilter = 'all', currentSearch = '', currentCar = null;
+        let user = { name: "Aarav Mehta", email: "aarav.mehta@velocity.in", phone: "+91 98765 43210", city: "Mumbai", currency: "INR", garage: [{ id: "g1", model: "Porsche 911 Turbo S", year: "2024" }], wishlist: [{ id: "w1", model: "Lamborghini Revuelto", price: "₹8.89 Crore" }] };
+
+        function showToast(msg, isError = false) { 
+            let t = document.getElementById('toast'); 
+            document.getElementById('toastMsg').innerText = msg; 
+            let icon = t.querySelector('i');
+            if(isError) { icon.className = "fas fa-exclamation-triangle text-red-500"; }
+            else { icon.className = "fas fa-check-circle text-red-500"; }
+            t.classList.remove('hidden'); 
+            setTimeout(() => t.classList.add('hidden'), 2800); 
+        }
+        
+        function saveUser() { localStorage.setItem('velocity_user', JSON.stringify(user)); updateAccountUI(); }
+        
+        function updateAccountUI() {
+            document.getElementById('displayNameSidebar').innerText = user.name; 
+            document.getElementById('displayEmailSidebar').innerText = user.email;
+            document.getElementById('fullName').value = user.name; 
+            document.getElementById('email').value = user.email; 
+            document.getElementById('phone').value = user.phone; 
+            document.getElementById('city').value = user.city; 
+            document.getElementById('currency').value = user.currency;
+            let garageDiv = document.getElementById('garageList'); 
+            garageDiv.innerHTML = user.garage.length ? user.garage.map(v => `<div class="flex justify-between items-center p-4 bg-white/5 rounded-xl border border-white/10"><span class="font-bold text-white">${v.model} <span class="text-gray-400 text-xs ml-2">${v.year}</span></span><button onclick="removeGarage('${v.id}')" class="text-red-500 hover:text-red-400 transition"><i class="fas fa-trash-alt"></i></button></div>`).join('') : '<div class="text-center text-gray-500 py-8 italic">Your garage is empty. Add your first dream machine.</div>';
+            let wishDiv = document.getElementById('wishlistItems'); 
+            wishDiv.innerHTML = user.wishlist.length ? user.wishlist.map(w => `<div class="flex justify-between items-center p-4 bg-white/5 rounded-xl border border-white/10"><span class="font-bold text-white">${w.model} <span class="text-red-400 text-xs ml-2">${w.price}</span></span><button onclick="removeWishlist('${w.id}')" class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-heart-broken"></i></button></div>`).join('') : '<div class="text-center text-gray-500 py-8 italic">No saved vehicles. Browse and add to wishlist.</div>';
+        }
+        
+        window.removeGarage = (id) => { user.garage = user.garage.filter(v => v.id !== id); saveUser(); showToast("Vehicle removed from garage"); };
+        window.removeWishlist = (id) => { user.wishlist = user.wishlist.filter(w => w.id !== id); saveUser(); showToast("Removed from wishlist"); };
+        
+        function renderCars() { 
+            let gridDiv = document.getElementById('carsGrid'); 
+            let filtered = db.filter(i => (activeFilter === 'all' || i.cat === activeFilter) && (i.model.toLowerCase().includes(currentSearch) || i.brand.toLowerCase().includes(currentSearch))); 
+            if(!filtered.length) { document.getElementById('emptyState').classList.remove('hidden'); gridDiv.innerHTML = ''; } 
+            else { 
+                document.getElementById('emptyState').classList.add('hidden'); 
+                gridDiv.innerHTML = filtered.map((c, i) => `<div class="premium-card p-4 rounded-3xl group cursor-pointer animate-fade" style="animation-delay:${i * 0.05}s" onclick="openModal(${c.id})"><div class="card-img-container rounded-2xl overflow-hidden mb-4"><img src="${c.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://placehold.co/800x500/111/444?text=Velocity+Exclusive'"></div><div class="flex justify-between items-start"><span class="text-[8px] font-black text-red-500 tracking-[0.2em] uppercase">${c.cat}</span><span class="text-[10px] text-gray-500 font-bold uppercase">${c.brand}</span></div><h3 class="text-lg font-bold uppercase tracking-tight italic group-hover:text-red-500 transition-colors">${c.model}</h3><div class="flex justify-between items-center pt-3 mt-3 border-t border-white/10"><p class="text-white font-extrabold text-sm tracking-tight">${c.price}</p><div class="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center group-hover:bg-red-600 group-hover:border-red-600 transition-all"><i class="fas fa-chevron-right text-[10px] text-gray-500 group-hover:text-white"></i></div></div></div>`).join(''); 
+            } 
+        }
+        
+        function openModal(id) { 
+            currentCar = db.find(c => c.id === id); 
+            document.getElementById('modalName').innerText = currentCar.model; 
+            document.getElementById('modalImg').src = currentCar.img; 
+            document.getElementById('modalPrice').innerText = currentCar.price; 
+            document.getElementById('modalCategory').innerText = currentCar.cat; 
+            document.getElementById('modalBody').innerText = currentCar.body; 
+            document.getElementById('modalDesc').innerText = currentCar.desc; 
+            document.getElementById('productModal').classList.remove('hidden'); 
+            document.body.style.overflow = 'hidden'; 
+        }
+        
+        function closeModal() { document.getElementById('productModal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+        
+        function openTourModal() { 
+            if(!currentCar) return; 
+            document.getElementById('tourCarName').innerText = currentCar.model; 
+            document.getElementById('tourName').value = user.name; 
+            document.getElementById('tourEmail').value = user.email; 
+            document.getElementById('tourPhone').value = user.phone;
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('tourDate').value = today; 
+            document.getElementById('tourModal').classList.remove('hidden'); 
+            document.body.style.overflow = 'hidden'; 
+        }
+        
+        function closeTourModal() { document.getElementById('tourModal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+        
+        function confirmTourBooking() {
+            let name = document.getElementById('tourName').value.trim();
+            let email = document.getElementById('tourEmail').value.trim();
+            let phone = document.getElementById('tourPhone').value;
+            let date = document.getElementById('tourDate').value;
+            let time = document.getElementById('tourTime').value;
+            if(!name || !email) { showToast("Please enter your name and email address", true); return; }
+            if(!date) { showToast("Please select a preferred date", true); return; }
+            showToast(`✅ Virtual tour booked for ${currentCar.model} on ${date} at ${time}. Confirmation sent to ${email}`, false);
+            closeTourModal();
+        }
+        
+        function downloadBrochure() { 
+            if(!currentCar) return; 
+            const brochureContent = `╔══════════════════════════════════════════════════════════╗
+║              VELOCITY INDIA - OFFICIAL BROCHURE              ║
+╚══════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────┐
+│ VEHICLE DETAILS                                             │
+├─────────────────────────────────────────────────────────────┤
+│ Brand:       ${currentCar.brand}
+│ Model:       ${currentCar.model}
+│ Category:    ${currentCar.cat}
+│ Body Style:  ${currentCar.body}
+│ Price:       ${currentCar.price} (Ex-Showroom)
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ DESCRIPTION                                                 │
+├─────────────────────────────────────────────────────────────┤
+│ ${currentCar.desc}
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ CONTACT INFORMATION                                         │
+├─────────────────────────────────────────────────────────────┤
+│ Website:    www.velocity.in
+│ Email:      concierge@velocity.in
+│ Phone:      +91-XXXXXXXXXX
+└─────────────────────────────────────────────────────────────┘
+
+© 2026 Velocity Automotive Pvt Ltd. All rights reserved.
+This brochure is for informational purposes only.`;
+            
+            const blob = new Blob([brochureContent], {type: 'text/plain'}); 
+            const url = URL.createObjectURL(blob); 
+            const a = document.createElement('a'); 
+            a.href = url; 
+            a.download = `${currentCar.model.replace(/\s/g, '_')}_Brochure.txt`; 
+            document.body.appendChild(a); 
+            a.click(); 
+            document.body.removeChild(a); 
+            URL.revokeObjectURL(url); 
+            showToast(`📄 Brochure for ${currentCar.model} downloaded successfully!`, false); 
+        }
+        
+        document.getElementById('bookTourBtn').onclick = openTourModal;
+        document.getElementById('downloadBrochureBtn').onclick = downloadBrochure;
+        document.getElementById('confirmTourBtn').onclick = confirmTourBooking;
+        
+        function handleSearch() { currentSearch = document.getElementById('searchInput').value.toLowerCase(); renderCars(); }
+        function applyFilter(cat, btn) { activeFilter = cat; document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); handleSearch(); }
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', () => applyFilter(btn.getAttribute('data-filter'), btn)));
+        document.getElementById('saveProfileBtn').onclick = () => { user.name = document.getElementById('fullName').value; user.email = document.getElementById('email').value; user.phone = document.getElementById('phone').value; user.city = document.getElementById('city').value; user.currency = document.getElementById('currency').value; saveUser(); showToast("Profile updated successfully"); };
+        document.getElementById('updatePasswordBtn').onclick = () => { let np = document.getElementById('newPwd').value, cp = document.getElementById('confirmPwd').value; if(np && np === cp && np.length >= 5) { showToast("Password updated successfully (demo)"); document.getElementById('currentPwd').value = ''; document.getElementById('newPwd').value = ''; document.getElementById('confirmPwd').value = ''; } else { showToast("Passwords do not match or are too short (min 5 chars)", true); } };
+        document.getElementById('addVehicleBtn').onclick = () => document.getElementById('vehicleModal').classList.remove('hidden');
+        document.getElementById('confirmVehicleBtn').onclick = () => { let m = document.getElementById('vehicleModel').value, y = document.getElementById('vehicleYear').value; if(m.trim()) { user.garage.push({ id: 'g' + Date.now(), model: m.trim(), year: y.trim() || '2025' }); saveUser(); closeVehicleModal(); showToast(`Added ${m} to your garage!`); document.getElementById('vehicleModel').value = ''; document.getElementById('vehicleYear').value = ''; } else { showToast("Please enter a vehicle model", true); } };
+        window.closeVehicleModal = () => document.getElementById('vehicleModal').classList.add('hidden');
+        
+        let tabs = document.querySelectorAll('.account-tab'); 
+        tabs.forEach(t => t.addEventListener('click', () => { let tabId = t.getAttribute('data-tab'); document.querySelectorAll('.account-tab-content').forEach(c => c.classList.add('hidden')); document.getElementById(`${tabId}Tab`).classList.remove('hidden'); tabs.forEach(ta => ta.classList.remove('active')); t.classList.add('active'); }));
+        
+        document.getElementById('openAccountBtn').onclick = () => document.getElementById('accountDashboard').classList.remove('hidden');
+        document.getElementById('closeAccountBtn').onclick = () => document.getElementById('accountDashboard').classList.add('hidden');
+        document.getElementById('accountBtnHeader').onclick = () => { document.getElementById('accountDashboard').classList.remove('hidden'); window.scrollTo({ top: 380, behavior: 'smooth' }); };
+        document.getElementById('listCarBtn').onclick = () => showToast("🚀 Our listing concierge will contact you shortly.");
+        
+        window.onload = () => { let stored = localStorage.getItem('velocity_user'); if(stored) user = { ...user, ...JSON.parse(stored) }; updateAccountUI(); renderCars(); };
+    </script>
+</body>
+</html>
